@@ -20,13 +20,33 @@ public class AppTest {
 	@Autowired
 	PostRepository postRepository;
 
-	@Test
-	public void test() {
+	// @Test
+	public void test1() {
 		Pageable pageable = new PageRequest(0, 10, Direction.ASC, "date");
-		Page<Post> posts = postRepository.findByAuthorContaining("add",
+		Page<Post> posts = postRepository.findByPermalink(
+				"bjdgkubdbesvrgkvvelt", pageable);
+		posts.iterator().forEachRemaining(post -> {
+			System.out.println(post.getId());
+			post.getTags().forEach(tag -> System.out.println(tag));
+		});
+	}
+
+	// @Test
+	public void test2() {
+		Pageable pageable = new PageRequest(0, 10, Direction.ASC, "date");
+		Page<Post> posts = postRepository.findByPermalink(
+				"bjdgkubdbesvrgkvvelt", pageable);
+		posts.iterator().forEachRemaining(
+				post -> System.out.println(post.getTitle()));
+	}
+
+	@Test
+	public void test3() {
+		Pageable pageable = new PageRequest(0, 10, Direction.ASC, "date");
+		Page<Post> posts = postRepository.findByAuthorOrTitle("add", "",
 				pageable);
 		posts.iterator().forEachRemaining(
-				post -> post.getTags().forEach(tag -> System.out.println(tag)));
+				post -> System.out.println(post.getTitle()));
 	}
 
 }

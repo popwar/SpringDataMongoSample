@@ -7,6 +7,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
 
-	Page<Post> findByAuthorContaining(String author, Pageable pageable);
+	Page<Post> findByPermalink(String permalink, Pageable pageable);
+
+	Page<Post> findByAuthorOrTitle(String author, String title,
+			Pageable pageable);
 
 }
